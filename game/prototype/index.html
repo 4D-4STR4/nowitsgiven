@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SALVAGE — Core Loop Prototype</title>
+<style>
+  :root { --amber:#ffb454; --red:#ff4d4d; --cyan:#5ad7ff; --dim:#6b7280; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; background:#05070a; color:#cdd6e0;
+    font-family:"Courier New",ui-monospace,monospace; }
+  #wrap { display:flex; flex-direction:column; align-items:center; gap:10px; padding:14px; }
+  h1 { font-size:18px; letter-spacing:4px; color:var(--amber); margin:6px 0 0; font-weight:700; }
+  .sub { font-size:11px; color:var(--dim); letter-spacing:2px; margin:0; }
+  #game { position:relative; border:1px solid #1b2430; box-shadow:0 0 40px rgba(0,0,0,.8); }
+  canvas { display:block; background:#03050a; image-rendering:pixelated; }
+  #hud { position:absolute; inset:0; pointer-events:none; }
+  #bars { position:absolute; top:10px; left:10px; right:10px; display:flex; gap:14px;
+    align-items:center; font-size:12px; text-shadow:0 1px 2px #000; }
+  .stat b { color:#fff; } .stat span { color:var(--dim); }
+  .meter { width:160px; height:10px; background:#10161f; border:1px solid #232f3d; position:relative; }
+  .meter > i { position:absolute; inset:0; width:0%; display:block; }
+  #instFill { background:linear-gradient(90deg,#3a6,#fb4); }
+  #oxyFill { background:linear-gradient(90deg,#2a6cff,#5ad7ff); }
+  #banner { position:absolute; top:50%; left:0; right:0; transform:translateY(-50%);
+    text-align:center; font-size:30px; letter-spacing:6px; color:var(--red);
+    text-shadow:0 0 14px rgba(255,77,77,.6); display:none; }
+  #banner small { display:block; font-size:13px; letter-spacing:3px; color:#cdd6e0; margin-top:10px; }
+  #toast { position:absolute; bottom:54px; left:0; right:0; text-align:center; font-size:14px;
+    color:var(--amber); opacity:0; transition:opacity .25s; text-shadow:0 1px 3px #000; }
+  #help { font-size:11px; color:var(--dim); letter-spacing:1px; max-width:960px; text-align:center; line-height:1.7; }
+  #help b { color:#9fb0c2; }
+  kbd { background:#141b25; border:1px solid #29384a; border-bottom-width:2px; border-radius:3px;
+    padding:1px 6px; color:#cdd6e0; font-size:11px; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <h1>S A L V A G E</h1>
+  <p class="sub">core-loop prototype · greed vs. the meltdown clock</p>
+  <div id="game">
+    <canvas id="cv" width="960" height="608"></canvas>
+    <div id="hud">
+      <div id="bars">
+        <div class="stat">QUOTA <b><span id="banked">0</span></b>/<span id="quota">0</span></div>
+        <div class="stat">HOLD <b id="carried">0</b> <span>($ at risk)</span></div>
+        <div class="stat">LOAD <b id="load">0</b><span id="loadmax">/0 kg</span></div>
+        <div class="stat">INSTABILITY <span class="meter"><i id="instFill"></i></span></div>
+        <div class="stat">O2 <span class="meter"><i id="oxyFill"></i></span></div>
+      </div>
+      <div id="banner"></div>
+      <div id="toast"></div>
+    </div>
+  </div>
+  <div id="help">
+    <b>WASD / Arrows</b> move &nbsp;·&nbsp; <b>E</b> grab salvage / extract at the <span style="color:var(--cyan)">AIRLOCK</span>
+    &nbsp;·&nbsp; <b>F</b> toggle flashlight (light = seen) &nbsp;·&nbsp; <b>V</b> vent a hull breach (spikes instability, kills nearby threats)
+    &nbsp;·&nbsp; <b>R</b> new wreck<br>
+    Heavier hauls &amp; deeper greed raise <b>INSTABILITY</b>. At 100% the reactor melts down — reach the airlock and
+    <b>extract</b> before the clock hits zero, or lose everything in your hold. Only <b>extracted</b> salvage counts toward quota.
+  </div>
+</div>
+<script src="game.js"></script>
+</body>
+</html>

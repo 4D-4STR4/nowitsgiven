@@ -42,7 +42,11 @@ with a dedicated goal:
 | `03-TECH-ARCHITECTURE.md` | Engine choice, multiplayer netcode, project scaffold |
 | `04-ART-AUDIO-PRODUCTION.md` | Art/audio direction, scope, budget, timeline |
 | `05-BUSINESS-GTM.md`      | Monetization, pricing, marketing, launch playbook |
+| `03-TECH-ARCHITECTURE.md` | Engine choice (Unity), SP/MP-shared netcode, project scaffold |
 | `06-COMPETITIVE-TEARDOWN.md` | Why the hits won; our differentiation |
-| `07-MASTER-PLAN.md`       | Orchestrator synthesis + the build roadmap |
+| `07-MASTER-PLAN.md`       | Orchestrator synthesis + go/no-go + build roadmap |
+| `08-PROTOTYPE.md`         | The runnable core-loop gray-box (`game/prototype/`) |
 
-_Status: agents dispatched; docs populated on synthesis._
+**Start here:** `07-MASTER-PLAN.md` (the decision doc), then play `game/prototype/index.html`.
+
+_Status: research synthesized; playable prototype built & validated._
