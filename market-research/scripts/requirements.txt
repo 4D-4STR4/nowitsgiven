@@ -1,0 +1,3 @@
+# For md_to_pdf.py (regenerate the ONDS PDFs)
+markdown
+weasyprint

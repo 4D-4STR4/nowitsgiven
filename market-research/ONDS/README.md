@@ -21,6 +21,13 @@ unverifiable items are explicitly flagged `UNVERIFIED`.
 
 > **Start here:** skim [`STUDY-GUIDE.md`](./STUDY-GUIDE.md) (~5 min) → read [`DOSSIER.md`](./DOSSIER.md) for the executive synthesis → then drill into sections.
 
+### 📱 PDF versions (phone-friendly)
+Pre-rendered PDFs are in [`pdf/`](./pdf/) — including a single combined **`ONDS-Full-Dossier.pdf`** (everything in one file) plus individual PDFs per document. Regenerate them with:
+```
+pip install -r ../scripts/requirements.txt
+python3 ../scripts/md_to_pdf.py
+```
+
 ## Snapshot (verified, as of 2026-06-19)
 - **Q1 2026 revenue:** $50.1M (+~1,065% YoY); FY2025 $50.7M (+605%); gross margin ~49% Q1-26.
 - **Profitability:** Operating loss $(42.7)M in Q1-26; the +$362.8M "net income" is a **non-cash** warrant/deconsolidation artifact.
