@@ -11,12 +11,14 @@ unverifiable items are explicitly flagged `UNVERIFIED`.
 |---|---------|------|
 | 1 | Financials & SEC Filings | [`sections/01-financials-sec.md`](./sections/01-financials-sec.md) |
 | 2 | Business Model, Segments & Technology | [`sections/02-business-and-technology.md`](./sections/02-business-and-technology.md) |
-| 3 | TAM, SAM & Market Sizing | [`sections/03-tam-market-sizing.md`](./sections/03-tam-market-sizing.md) _(pending)_ |
-| 4 | Competitive Landscape | [`sections/04-competition.md`](./sections/04-competition.md) _(pending)_ |
+| 3 | TAM, SAM & Market Sizing | [`sections/03-tam-market-sizing.md`](./sections/03-tam-market-sizing.md) |
+| 4 | Competitive Landscape | [`sections/04-competition.md`](./sections/04-competition.md) |
 | 5 | Execution History, Management & Capital Structure | [`sections/05-execution-management.md`](./sections/05-execution-management.md) |
 | 6 | Catalysts, Contracts, M&A & Events | [`sections/06-catalysts-ma-contracts.md`](./sections/06-catalysts-ma-contracts.md) |
 | 7 | Industry, Regulatory & Macro Lateral Factors | [`sections/07-industry-regulatory-macro.md`](./sections/07-industry-regulatory-macro.md) |
-| — | **Executive Summary / Master Dossier** | [`DOSSIER.md`](./DOSSIER.md) _(pending)_ |
+| ⭐ | **Executive Summary / Master Dossier** | [`DOSSIER.md`](./DOSSIER.md) |
+
+> **Start here:** read [`DOSSIER.md`](./DOSSIER.md) for the executive synthesis, then drill into sections.
 
 ## Snapshot (verified, as of 2026-06-19)
 - **Q1 2026 revenue:** $50.1M (+~1,065% YoY); FY2025 $50.7M (+605%); gross margin ~49% Q1-26.
