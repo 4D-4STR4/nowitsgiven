@@ -23,7 +23,11 @@ market-research/
 ## Research index
 | Ticker | Company | Status | Folder |
 |--------|---------|--------|--------|
-| ONDS | Ondas Inc. | In progress | [`ONDS/`](./ONDS/) |
+| ONDS | Ondas Inc. | Complete | [`ONDS/`](./ONDS/) |
+
+## Automation
+The ONDS dossier can auto-refresh on a schedule and open a PR with updates.
+See [`AUTOMATION.md`](./AUTOMATION.md) for what it does and the one-time setup.
 
 ## Disclaimer
 All content here is for informational and educational purposes only. It is **not financial advice**.

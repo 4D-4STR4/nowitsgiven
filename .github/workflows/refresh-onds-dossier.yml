@@ -1,0 +1,88 @@
+name: Refresh ONDS Dossier
+
+# Refreshes the ONDS market-research dossier ON DEMAND (manual trigger only).
+# It re-checks the latest figures (price, most recent quarter, backlog, share
+# count, new SEC filings / press releases) and opens a PR with the updates —
+# it never pushes to a protected branch directly, so you stay in the loop.
+#
+# This workflow is intentionally MANUAL-ONLY (no cron schedule): every run is
+# human-initiated from the Actions tab, so it is not an unattended autonomous
+# loop. To make it scheduled later, add a `schedule:` trigger with a cron line.
+#
+# ── REQUIRED ONE-TIME SETUP ──────────────────────────────────────────────
+#   1. Add a repository secret named ANTHROPIC_API_KEY
+#        Settings → Secrets and variables → Actions → New repository secret
+#        (Get a key at https://console.anthropic.com/)
+#   2. Allow GitHub Actions to create pull requests:
+#        Settings → Actions → General → Workflow permissions →
+#        enable "Allow GitHub Actions to create and approve pull requests"
+#   3. Run it: Actions → "Refresh ONDS Dossier" → Run workflow.
+# ─────────────────────────────────────────────────────────────────────────
+
+on:
+  workflow_dispatch: {}  # manual "Run workflow" from the Actions tab only
+
+permissions:
+  contents: write        # create a branch / commit the refreshed dossier
+  pull-requests: write   # open the PR with the changes
+
+concurrency:
+  group: refresh-onds-dossier
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Refresh dossier with Claude Code
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Tools the run is allowed to use (web research + git for the PR).
+          claude_args: >-
+            --max-turns 60
+            --allowedTools "WebSearch,WebFetch,Read,Edit,Write,Glob,Grep,Bash(git:*)"
+          prompt: |
+            You are refreshing the existing equity-research dossier for Ondas Inc.
+            (NASDAQ: ONDS) located at `market-research/ONDS/`.
+
+            GOAL: Update the dossier with the latest verified information WITHOUT
+            rewriting it from scratch. Preserve structure, tone, and existing
+            source citations; only change what has actually moved.
+
+            STEPS:
+            1. Determine today's date and note it.
+            2. Research what is NEW since the dossier's current "as of" date:
+               - latest share price / market cap
+               - most recent reported quarter (revenue, gross margin, operating
+                 loss, cash, share count) from the newest 10-Q/10-K on SEC EDGAR
+                 (CIK 0001646188)
+               - latest backlog & FY guidance figures
+               - any new 8-Ks, press releases, contracts, M&A, or partnerships
+                 (check https://ir.ondas.com/press-releases)
+               - any new analyst/short-seller commentary or regulatory changes
+            3. Update `market-research/ONDS/DOSSIER.md`:
+               - bump the "as of" date
+               - update the "Numbers That Matter" table with verified figures
+               - append genuinely new items to catalysts / bull-bear as warranted
+               Also update the relevant files in `market-research/ONDS/sections/`
+               where a figure materially changed, and `market-research/ONDS/README.md`
+               snapshot.
+            4. ZERO HALLUCINATIONS: every changed figure must be traceable to a
+               cited source URL (prefer SEC filings, then company IR, then
+               reputable press). If you cannot verify a change, leave the prior
+               value and add an "UNVERIFIED" note rather than guessing. Keep the
+               distinction between audited SEC figures and company-provided
+               (non-GAAP / press-release) figures.
+            5. If nothing material changed, make only the "as of" date bump.
+            6. Commit to a new branch named `auto/onds-dossier-refresh-<date>` and
+               open a pull request summarizing exactly what changed and the
+               sources used. Do NOT merge it.
+
+            This is informational research only — not financial advice.
